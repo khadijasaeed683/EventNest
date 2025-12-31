@@ -136,7 +136,7 @@ EventNest/
 │       │   └── ManageSociety/
 │       └── utils/
 │
-└── server/                    # Express backend
+└── server/                   # Express backend
     ├── config/               # Configuration files
     │   ├── cloudinary.js     # Cloudinary setup
     │   └── connectDB.js      # MongoDB connection
