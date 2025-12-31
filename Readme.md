@@ -606,10 +606,6 @@ Contributions are welcome! Please follow these steps:
 
 This project is licensed under the ISC License.
 
-## 👨‍💻 Author
-
-Maryam
-
 ## 🙏 Acknowledgments
 
 - React documentation and community
@@ -617,9 +613,6 @@ Maryam
 - MongoDB documentation
 - All contributors and supporters
 
-## 📧 Support
-
-For support, email your-email@example.com or create an issue in the repository.
 
 ---
 
