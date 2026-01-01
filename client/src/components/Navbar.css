@@ -1,100 +1,372 @@
-/* Navbar.css */
+/* ========================================
+   MODERN NAVBAR - EVENTNEST
+   Professional & Smooth Design
+   ======================================== */
 
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 32px;
-  background-color: #ffffff;
-  color: #000000;
-  position: sticky;
+  padding: 20px 48px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #2d2d2d;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
+  border-bottom: 1px solid rgba(62, 26, 71, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0);
 }
-.navbar-left {
-  position: relative;
-}
-
-.navbar-logo {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%) scale(1.6); /* center & enlarge */
-  height: 110px; /* this controls how much space the navbar allocates */
-  width: auto;
-}
-
 
 .navbar-scrolled {
-  padding: 10px 32px;
-  background-color: #F5F5F5;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 12px 48px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(62, 26, 71, 0.12);
+}
+
+/* Logo Section */
+.navbar-left {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .logo-link {
-  font-size: 1.8rem;
-  font-weight: bold;
-  transition: font-size 0.3s ease;
   text-decoration: none;
-  color: #000000;
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease;
 }
 
-.navbar-scrolled .logo {
-  font-size: 1.4rem;
+.logo-link:hover {
+  transform: scale(1.03);
 }
 
+.navbar-logo {
+  height: 80px;
+  width: auto;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.navbar-scrolled .navbar-logo {
+  height: 60px;
+}
+
+/* Navigation Links */
 .navbar-right {
   display: flex;
-  gap: 16px;
+  gap: 24px;
   align-items: center;
 }
 
 .nav-link {
   text-decoration: none;
-  color: #000000 !important;
-  font-weight: 500;
-  transition: color 0.3s ease;
+  color: #2d2d2d;
+  font-weight: 600;
+  font-size: 1rem;
+  position: relative;
+  transition: all 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 60%;
+  height: 2px;
+  background: linear-gradient(to right, #3e1a47, #7a3a8c);
+  transition: transform 0.3s ease;
+  border-radius: 2px;
 }
 
 .nav-link:hover {
-  color: #5D3A8D; /* Optional hover tweak */
+  color: #3e1a47;
 }
 
+.nav-link:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* Sign Up Button */
 .nav-button {
-  background-color: #3E1A47;
+  background: linear-gradient(135deg, #3e1a47 0%, #5d2a6a 100%);
   color: #ffffff;
-  padding: 8px 16px;
-  border-radius: 6px;
+  padding: 10px 24px;
+  border-radius: 50px;
   text-decoration: none;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(62, 26, 71, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.5s ease, height 0.5s ease;
+}
+
+.nav-button:hover::before {
+  width: 300px;
+  height: 300px;
 }
 
 .nav-button:hover {
-  background-color: #52225C;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(62, 26, 71, 0.3);
+  background: linear-gradient(135deg, #5d2a6a 0%, #7a3a8c 100%);
 }
 
-/* Responsive for small screens */
-@media (max-width: 640px) {
+.nav-button:active {
+  transform: translateY(0);
+}
+
+/* User Info Section */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  border: 1px solid rgba(62, 26, 71, 0.1);
+}
+
+.user-info:hover {
+  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+  border-color: rgba(62, 26, 71, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.user-info span {
+  font-weight: 600;
+  color: #3e1a47;
+  font-size: 0.95rem;
+}
+
+/* Avatar */
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3e1a47 0%, #7a3a8c 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 0.9rem;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.user-info:hover .avatar {
+  transform: scale(1.1);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  padding: 12px;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 1px solid rgba(62, 26, 71, 0.1);
+  animation: slideDown 0.3s ease;
+  z-index: 1001;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-menu button {
+  background: transparent;
+  border: none;
+  padding: 12px 16px;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #2d2d2d;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dropdown-menu button:hover {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  color: #3e1a47;
+  transform: translateX(4px);
+}
+
+.dropdown-menu button:last-child:hover {
+  background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+  color: #d32f2f;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
   .navbar {
-    flex-direction: column;
-    align-items: flex-start;
+    padding: 16px 32px;
+  }
+
+  .navbar-scrolled {
+    padding: 10px 32px;
   }
 
   .navbar-right {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-    margin-top: 10px;
+    gap: 16px;
   }
 
-  .nav-link,
-  .nav-button {
-    padding-left: 0;
+  .nav-link {
+    font-size: 0.95rem;
   }
 }
 
-.avatar {
-  background-color: #E0E0E0; /* Updated to match light theme */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 14px 24px;
+    flex-wrap: wrap;
+  }
+
+  .navbar-scrolled {
+    padding: 10px 24px;
+  }
+
+  .navbar-logo {
+    height: 60px;
+  }
+
+  .navbar-scrolled .navbar-logo {
+    height: 50px;
+  }
+
+  .navbar-right {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+    padding: 6px 10px;
+  }
+
+  .nav-button {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+  }
+
+  .user-info span {
+    display: none;
+  }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 0.85rem;
+  }
+
+  .dropdown-menu {
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar {
+    padding: 12px 16px;
+  }
+
+  .navbar-scrolled {
+    padding: 8px 16px;
+  }
+
+  .navbar-logo {
+    height: 50px;
+  }
+
+  .navbar-scrolled .navbar-logo {
+    height: 45px;
+  }
+
+  .navbar-right {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+
+  .nav-link {
+    font-size: 0.85rem;
+    padding: 5px 8px;
+  }
+
+  .nav-button {
+    padding: 7px 16px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-right {
+    gap: 8px;
+  }
+
+  .nav-link::after {
+    display: none;
+  }
+
+  .dropdown-menu {
+    right: -8px;
+    min-width: 160px;
+  }
+
+  .dropdown-menu button {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
 }

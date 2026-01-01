@@ -1,52 +1,292 @@
+/* ========================================
+   MODERN RSVP FORM MODAL - EVENTNEST
+   Glassmorphism & Professional Design
+   ======================================== */
+
 .rsvp-form-modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(34, 40, 49, 0.8);
+  background: rgba(62, 26, 71, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease;
+  padding: 20px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .rsvp-form-container {
-  background: #fff;
-  padding: 30px;
-  border-radius: 12px;
-  max-width: 400px;
-  width: 90%;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 48px 40px;
+  border-radius: 24px;
+  max-width: 550px;
+  width: 100%;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4),
+              0 0 2px rgba(255, 255, 255, 0.5) inset;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
 
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Header with decorative line */
 .rsvp-form-container h3 {
-  margin-bottom: 20px;
-  color: #222831;
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #3e1a47;
+  margin-bottom: 32px;
+  text-align: center;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.rsvp-form-container h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, #3e1a47, #7a3a8c);
+  border-radius: 2px;
+}
+
+/* Form styles */
+.rsvp-form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.rsvp-form-container label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #3e1a47;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .rsvp-form-container input,
 .rsvp-form-container textarea {
-  width: auto;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  width: 100%;
+  padding: 16px 18px;
+  margin-bottom: 24px;
+  border: 2px solid rgba(62, 26, 71, 0.15);
+  border-radius: 14px;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(255, 255, 255, 0.95);
+  color: #2d2d2d;
+  box-sizing: border-box;
 }
 
+.rsvp-form-container input:focus,
+.rsvp-form-container textarea:focus {
+  outline: none;
+  border-color: #3e1a47;
+  box-shadow: 0 0 0 4px rgba(62, 26, 71, 0.12);
+  background: #ffffff;
+  transform: translateY(-2px);
+}
+
+.rsvp-form-container input::placeholder,
+.rsvp-form-container textarea::placeholder {
+  color: #999;
+}
+
+.rsvp-form-container textarea {
+  resize: vertical;
+  min-height: 100px;
+  max-height: 200px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Form Actions */
 .form-actions {
   display: flex;
-  justify-content: space-between;
+  gap: 14px;
+  margin-top: 12px;
 }
 
-button {
-  padding: 10px 15px;
-  background-color: #393E46;
-  color: white;
+.form-actions button {
+  flex: 1;
+  padding: 16px 28px;
   border: none;
-  border-radius: 6px;
+  border-radius: 14px;
   cursor: pointer;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  box-sizing: border-box;
+}
+
+.form-actions button[type="submit"] {
+  background: linear-gradient(135deg, #3e1a47 0%, #5d2a6a 100%);
+  color: white;
+  box-shadow: 0 8px 24px rgba(62, 26, 71, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.form-actions button[type="submit"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.form-actions button[type="submit"]:hover::before {
+  left: 100%;
+}
+
+.form-actions button[type="submit"]:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(62, 26, 71, 0.45);
+  background: linear-gradient(135deg, #5d2a6a 0%, #7a3a8c 100%);
+}
+
+.form-actions button[type="submit"]:active {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(62, 26, 71, 0.35);
 }
 
 .cancel-btn {
-  background-color: #aaaaaa;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e9ecef 100%) !important;
+  color: #2d2d2d !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.cancel-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%) !important;
+}
+
+.cancel-btn:active {
+  transform: translateY(-1px);
+}
+
+/* Loading state */
+.form-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .rsvp-form-container {
+    padding: 40px 32px;
+    max-width: 500px;
+  }
+
+  .rsvp-form-container h3 {
+    font-size: 1.75rem;
+    margin-bottom: 28px;
+  }
+
+  .rsvp-form-container input,
+  .rsvp-form-container textarea {
+    padding: 14px 16px;
+    font-size: 0.95rem;
+  }
+
+  .form-actions button {
+    padding: 14px 24px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .rsvp-form-modal {
+    padding: 16px;
+  }
+
+  .rsvp-form-container {
+    padding: 32px 24px;
+  }
+
+  .rsvp-form-container h3 {
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+  }
+
+  .rsvp-form-container input,
+  .rsvp-form-container textarea {
+    padding: 12px 14px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .form-actions button {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Close button alternative (optional) */
+.rsvp-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(62, 26, 71, 0.1);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #3e1a47;
+  transition: all 0.3s ease;
+}
+
+.rsvp-close-btn:hover {
+  background: rgba(62, 26, 71, 0.2);
+  transform: rotate(90deg);
 }

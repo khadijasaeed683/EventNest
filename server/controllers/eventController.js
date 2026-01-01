@@ -173,10 +173,7 @@ const getPublicEvents = async (req, res) => {
 
     const filteredEvents = events.filter(e => e.societyId); // remove those with no matching society
 
-    if (filteredEvents.length === 0) {
-      return res.status(404).json({ message: 'No approved public events found' });
-    }
-
+    // Return empty array instead of 404 for better frontend handling
     return res.status(200).json(filteredEvents);
 
   } catch (error) {
@@ -210,16 +207,18 @@ const registerForEvent = async (req, res) => {
     const eventId = req.params.id;
     console.log('Register request body:', req.body);
 
+    // Validate input
+    if (!email || !name || !phone) {
+      return res.status(400).json({ message: 'Name, email, and phone are required.' });
+    }
+
     const event = await Event.findById(eventId);
     if (!event) return res.status(404).json({ message: 'Event not found' });
 
     const user = await User.findOne({ email });
 
-    //  Check if already registered as user or guest
-    const alreadyRegistered = event.participants.find(p =>
-      (p.user && user && p.user.equals(user._id)) ||
-      (!p.user && p.email === email)
-    );
+    //  Check if already registered by email
+    const alreadyRegistered = event.participants.find(p => p.email === email);
     if (alreadyRegistered) {
       return res.status(400).json({ message: 'You have already registered for this event.' });
     }
@@ -258,6 +257,7 @@ const registerForEvent = async (req, res) => {
         isGuest: false
       });
       user.registeredEvents.push(event._id);
+      await user.save();
     }
 
     await event.save();

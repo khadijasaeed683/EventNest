@@ -103,103 +103,147 @@ const SocietyDetails = () => {
     <>
       <Navbar />
       <div className="society-page">
-        {/* Cover */}
-        <div className="cover">
-          {society.coverImage && (
-            <img src={society.coverImage} alt="cover" />
-          )}
-          <div className="society-header">
-            <img src={society.logo} alt="logo" className="society-logo-details" />
-            <div>
-              <h1>{society.name}</h1>
-              <p className="society-type">{society.type}</p>
-              <button
-                className="join-btn"
-                onClick={() => {
-                  if (!user) {
-                    toast.info("Please login to join.");
-                    return navigate("/login");
-                  }
-                  setjoinSocietyformData({
-                    name: user.username,
-                    email: user.email,
-                    reason: "",
-                  });
-                  setShowApplyForm(true);
-                }}
-              >
-                {society.pendingRequests?.some((r) => r.userId === user?._id)
-                  ? "Join request pending"
-                  : hasJoined
-                    ? `Leave ${society.name}`
-                    : `Join ${society.name}`}
-              </button>
+        {/* Hero Cover Section */}
+        <div className="society-hero">
+          <div className="hero-cover">
+            {society.coverImage ? (
+              <img src={society.coverImage} alt="cover" className="cover-image" />
+            ) : (
+              <div className="cover-gradient"></div>
+            )}
+            <div className="hero-overlay"></div>
+          </div>
+
+          <div className="hero-content-wrapper">
+            <div className="hero-content">
+              <div className="society-logo-wrapper">
+                <img src={society.logo} alt="logo" className="society-logo" />
+              </div>
+              
+              <div className="society-info">
+                <div className="society-meta">
+                  <span className="society-type-badge">{society.type}</span>
+                  <span className="members-count">
+                    <FaUsers /> {society.members?.length || 0} members
+                  </span>
+                </div>
+                <h1 className="society-title">{society.name}</h1>
+                <p className="society-tagline">{society.description?.substring(0, 120)}...</p>
+                
+                <div className="hero-actions">
+                  <button
+                    className="join-btn primary"
+                    onClick={() => {
+                      if (!user) {
+                        toast.info("Please login to join.");
+                        return navigate("/login");
+                      }
+                      setjoinSocietyformData({
+                        name: user.username,
+                        email: user.email,
+                        reason: "",
+                      });
+                      setShowApplyForm(true);
+                    }}
+                  >
+                    {society.pendingRequests?.some((r) => r.userId === user?._id)
+                      ? "Request Pending"
+                      : hasJoined
+                        ? "Leave Society"
+                        : "Join Society"}
+                  </button>
+
+                  {(society.contactEmail || society.phone || society.socialLinks?.instagram || society.socialLinks?.linkedin) && (
+                    <div className="social-links-compact">
+                      {society.contactEmail && (
+                        <a href={`mailto:${society.contactEmail}`} className="social-icon" title="Email">
+                          <FaEnvelope />
+                        </a>
+                      )}
+                      {society.phone && (
+                        <a href={`tel:${society.phone}`} className="social-icon" title="Phone">
+                          <FaPhone />
+                        </a>
+                      )}
+                      {society.socialLinks?.instagram && (
+                        <a href={society.socialLinks.instagram} target="_blank" rel="noopener noreferrer" className="social-icon" title="Instagram">
+                          <FaInstagram />
+                        </a>
+                      )}
+                      {society.socialLinks?.linkedin && (
+                        <a href={society.socialLinks.linkedin} target="_blank" rel="noopener noreferrer" className="social-icon" title="LinkedIn">
+                          <FaLinkedin />
+                        </a>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
+        {/* Main Content Container */}
+        <div className="society-main-content">
+          {/* About Section */}
+          <section className="content-section about-section">
+            <h2 className="section-title">About</h2>
+            <p className="about-text">{society.description}</p>
+          </section>
 
-        {/* About Section */}
-        <section className="about-card">
-          <h2>About</h2>
-          <p>{society.description}</p>
-        </section>
-
-        {/* Members Section */}
-        <section className="society-members-card">
-          <h2>
-            <FaUsers /> Members ({society.members?.length || 0})
-          </h2>
-
-          <div className="society-members-carousel">
+          {/* Members Section */}
+          <section className="content-section members-section">
+            <h2 className="section-title">
+              <FaUsers /> Our Members
+            </h2>
             {society.members?.length ? (
-              society.members.map((m) => (
-                <div key={m._id} className="society-member-card">
-                  {m.profilePic ? (
-                    <img
-                      src={m.profilePic}
-                      alt={m.username}
-                      className="society-member-avatar-img"
-                    />
-                  ) : (
-                    <div
-                      className="society-member-avatar-fallback"
-                      style={{
-                        background: getAvatarColor(m._id),
-                      }}
-                    >
-                      {m.username?.charAt(0).toUpperCase() || "U"}
-                    </div>
-                  )}
-                  <p className="society-member-name">{m.username}</p>
-                </div>
-              ))
+              <div className="members-grid">
+                {society.members.map((m) => (
+                  <div key={m._id} className="member-card">
+                    {m.profilePic ? (
+                      <img
+                        src={m.profilePic}
+                        alt={m.username}
+                        className="member-avatar"
+                      />
+                    ) : (
+                      <div
+                        className="member-avatar-placeholder"
+                        style={{ background: getAvatarColor(m._id) }}
+                      >
+                        {m.username?.charAt(0).toUpperCase() || "U"}
+                      </div>
+                    )}
+                    <p className="member-name">{m.username}</p>
+                  </div>
+                ))}
+              </div>
             ) : (
-              <p>No members yet.</p>
+              <p className="empty-state">No members yet. Be the first to join!</p>
             )}
-          </div>
-        </section>
+          </section>
 
-        {/* Events Section */}
-        <section className="events-card">
-          <h2>Upcoming Events</h2>
-          {society.events?.length ? (
-            <div className="events-list">
-              {society.events.map((event) => (
-                <EventCard
-                  key={event._id}
-                  event={event}
-                  isRsvped={event.participants?.some((p) => p.email === user?.email)}
-                  onRSVPClick={handleRSVPClick}
-                />
-              ))}
-            </div>
-          ) : (
-            <p>No events scheduled.</p>
-          )}
-        </section>
+          {/* Events Section */}
+          <section className="content-section events-section">
+            <h2 className="section-title">Upcoming Events</h2>
+            {society.events?.length ? (
+              <div className="events-grid">
+                {society.events.map((event) => (
+                  <EventCard
+                    key={event._id}
+                    event={event}
+                    isRsvped={event.participants?.some((p) => p.email === user?.email)}
+                    onRSVPClick={handleRSVPClick}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="empty-state">No events scheduled yet. Stay tuned!</p>
+            )}
+          </section>
+        </div>
 
-        {/* ✅ RSVP Form Modal */}
+        {/* RSVP Form Modal */}
         {selectedEvent && (
           <RSVPForm
             event={selectedEvent}
@@ -210,7 +254,6 @@ const SocietyDetails = () => {
           />
         )}
 
-        {/* Footer */}
         <Footer />
       </div>
 

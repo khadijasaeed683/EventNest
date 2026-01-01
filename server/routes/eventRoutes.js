@@ -8,6 +8,7 @@ const { createEvent,
       } = require('../controllers/eventController');
 const { protect , authAdmin} = require('../middleware/authMiddleware');
 const upload = require('../middleware/multer'); 
+const { registerForEvent } = require('../controllers/eventController');
 
 // Route to create an event
 router.post(

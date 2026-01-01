@@ -1,31 +1,211 @@
+/* ========================================
+   MODERN EXPLORE EVENTS PAGE - EVENTNEST
+   Grid Layout with Filters & Search
+   ======================================== */
+
 .explore-events-page {
-  background-color: #ffffff;
+  background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
   min-height: 100vh;
-  padding: 10px 20px;
-  font-family: 'Segoe UI', sans-serif;
-  color: #222831;
+  padding: 40px 5%;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
 }
 
+/* Header Section */
 .explore-events-page h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #3e1a47;
   text-align: center;
-  margin-bottom: 10px;
-  color: #393E46;
+  margin-bottom: 16px;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.events-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 800px;
-  margin: 0 auto;
+.explore-events-page h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(to right, #3e1a47, #7a3a8c);
+  border-radius: 2px;
 }
+
+.explore-events-page p {
+  text-align: center;
+  font-size: 1.05rem;
+  color: #666;
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* Search Bar */
 .eventsearch-bar {
   width: 100%;
-  max-width: 1230px;
-  padding: 10px;
-  margin: 20px 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  max-width: 800px;
+  padding: 16px 24px;
+  margin: 0 auto 40px;
+  border: 2px solid rgba(62, 26, 71, 0.15);
+  border-radius: 50px;
   font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: block;
+}
+
+.eventsearch-bar:focus {
+  outline: none;
+  border-color: #3e1a47;
+  box-shadow: 0 0 0 4px rgba(62, 26, 71, 0.1), 0 6px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.eventsearch-bar::placeholder {
+  color: #999;
+}
+
+/* Events Grid */
+.events-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  grid-column: 1 / -1;
+}
+
+.empty-state h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: #3e1a47;
+  margin-bottom: 12px;
+}
+
+.empty-state p {
+  font-size: 1.05rem;
+  color: #666;
+  margin-bottom: 0;
+}
+
+/* Loading State */
+.loading-state {
+  text-align: center;
+  padding: 100px 20px;
+  font-size: 1.2rem;
+  color: #3e1a47;
+  font-weight: 600;
+  grid-column: 1 / -1;
+}
+
+.loading-state::after {
+  content: '...';
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: '.'; }
+  40% { content: '..'; }
+  60%, 100% { content: '...'; }
+}
+
+/* Error State */
+.error-state {
+  text-align: center;
+  padding: 80px 20px;
+  grid-column: 1 / -1;
+}
+
+.error-state h3 {
+  font-size: 1.5rem;
+  color: #d32f2f;
+  margin-bottom: 12px;
+}
+
+.error-state p {
+  font-size: 1rem;
+  color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .explore-events-page {
+    padding: 32px 4%;
+  }
+
+  .explore-events-page h2 {
+    font-size: 2.2rem;
+  }
+
+  .events-list {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .explore-events-page {
+    padding: 24px 20px;
+  }
+
+  .explore-events-page h2 {
+    font-size: 1.9rem;
+  }
+
+  .explore-events-page p {
+    font-size: 1rem;
+    margin-bottom: 32px;
+  }
+
+  .eventsearch-bar {
+    padding: 14px 20px;
+    font-size: 0.95rem;
+    margin-bottom: 32px;
+  }
+
+  .events-list {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .explore-events-page {
+    padding: 20px 16px;
+  }
+
+  .explore-events-page h2 {
+    font-size: 1.6rem;
+  }
+
+  .explore-events-page p {
+    font-size: 0.95rem;
+  }
+
+  .eventsearch-bar {
+    padding: 12px 18px;
+    font-size: 0.9rem;
+  }
+
+  .events-list {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }
 

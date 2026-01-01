@@ -17,33 +17,39 @@ const SocietyCard = ({ society, user }) => {
 
 
   return (
-    <div className="card">
+    <div className="user-society-card">
+      {society.deactivated && (
+        <span className="badge deactivated-badge">Deactivated</span>
+      )}
+      
       <div className="top-section">
         <h1 className="society-name">{society.name}</h1>
       </div>
 
       <div className="bottom-section">
-        <div className="row row1">
+        <div className="row">
           <div className="item">
-            <span className="big-text">{society.members.length}</span>
+            <span className="big-text">{society.members?.length || 0}</span>
             <span className="regular-text">Members</span>
           </div>
           <div className="item">
-            <span className="big-text">{society.events.length}</span>
+            <span className="big-text">{society.events?.length || 0}</span>
             <span className="regular-text">Events</span>
           </div>
           <div className="item">
-            <span className="big-text">Role</span>
+            <span className="big-text">{society.createdBy === user._id ? '👑' : '👤'}</span>
             <span className="regular-text">
               {society.createdBy === user._id ? 'Admin' : 'Member'}
             </span>
           </div>
         </div>
+        
         {society.deactivated && (
-          <button className="details-btn" onClick={() => handleRequestActivation(society._id)}>
+          <button className="activation-btn" onClick={() => handleRequestActivation(society._id)}>
             Request Activation
           </button>
         )}
+        
         <button className="details-btn" onClick={() => handleViewDetails(society._id)}>
           View Details
         </button>

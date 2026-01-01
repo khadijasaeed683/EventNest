@@ -135,10 +135,7 @@ const getSocietiesByApprovalStatus = async (req, res) => {
   try {
     const societies = await Society.find(filter);
 
-    if (!societies.length) {
-      return res.status(404).json({ message: 'No societies found for given status' });
-    }
-
+    // Return empty array instead of 404 for better frontend handling
     res.status(200).json({ societies });
   } catch (error) {
     console.error('Error fetching societies:', error);

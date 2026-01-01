@@ -153,6 +153,41 @@ const UserDashboard = () => {
         <div className="dashboard-page">
           <h1>Welcome, {user.username}</h1>
 
+          {/* Stats Cards Section */}
+          <div className="stats-section">
+            <div className="stat-card">
+              <div className="stat-icon societies-icon">🏢</div>
+              <div className="stat-content">
+                <div className="stat-number">{societies.filter(s => s.approved && !s.deactivated).length}</div>
+                <div className="stat-label">Active Societies</div>
+              </div>
+            </div>
+
+            <div className="stat-card">
+              <div className="stat-icon events-icon">📅</div>
+              <div className="stat-content">
+                <div className="stat-number">{events.length}</div>
+                <div className="stat-label">Registered Events</div>
+              </div>
+            </div>
+
+            <div className="stat-card">
+              <div className="stat-icon upcoming-icon">🎯</div>
+              <div className="stat-content">
+                <div className="stat-number">{allUpcomingEvents.length}</div>
+                <div className="stat-label">Upcoming Events</div>
+              </div>
+            </div>
+
+            <div className="stat-card">
+              <div className="stat-icon admin-icon">👑</div>
+              <div className="stat-content">
+                <div className="stat-number">{adminSocieties.length}</div>
+                <div className="stat-label">Societies Owned</div>
+              </div>
+            </div>
+          </div>
+
           {societies.some(s => s.deactivated === false && s.approved === true) && (
             <section className="joined-societies">
               <h2>Active Societies</h2>
@@ -241,6 +276,23 @@ const UserDashboard = () => {
                 ))}
               </div>
             </section>
+          )}
+
+          {/* Empty State */}
+          {societies.length === 0 && events.length === 0 && (
+            <div className="empty-dashboard-state">
+              <div className="empty-icon">🎯</div>
+              <h3>Get Started with EventNest!</h3>
+              <p>You haven't joined any societies yet. Start exploring and connecting with campus communities.</p>
+              <div className="empty-actions">
+                <button className="primary-action" onClick={() => navigate('/JoinSociety')}>
+                  Browse Societies
+                </button>
+                <button className="secondary-action" onClick={() => navigate('/events')}>
+                  View Public Events
+                </button>
+              </div>
+            </div>
           )}
 
           <div className="explore-button">

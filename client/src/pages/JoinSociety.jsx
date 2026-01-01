@@ -44,6 +44,18 @@ const JoinSociety = () => {
       return;
     }
 
+    // Check if user is already admin/creator of this society
+    if (society.createdBy === user._id) {
+      toast.info('You are the admin of this society.');
+      return;
+    }
+
+    // Check if user is already a member
+    if (society.members && society.members.includes(user._id)) {
+      toast.info('You are already a member of this society.');
+      return;
+    }
+
     setFormData({
       name: user?.username || '',
       email: user?.email || '',
@@ -130,12 +142,18 @@ const JoinSociety = () => {
                 <p>{society.description}</p>
                 {society.inductionsOpen && <span className="open-tag">Inductions Open</span>}
                 <div className="card-buttons">
-                  <button
-                    disabled={!society.inductionsOpen}
-                    onClick={() => handleApplyClick(society)}
-                  >
-                    {society.inductionsOpen ? 'Join' : 'Inductions Closed'}
-                  </button>
+                  {user && (society.createdBy === user._id || society.members?.includes(user._id)) ? (
+                    <button disabled className="already-member-btn">
+                      {society.createdBy === user._id ? 'Your Society' : 'Already Joined'}
+                    </button>
+                  ) : (
+                    <button
+                      disabled={!society.inductionsOpen}
+                      onClick={() => handleApplyClick(society)}
+                    >
+                      {society.inductionsOpen ? 'Join' : 'Inductions Closed'}
+                    </button>
+                  )}
 
                   <button onClick={() => handleViewDetails(society._id)}>
                     Details

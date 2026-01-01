@@ -91,10 +91,22 @@ const SocietyRequests = () => {
               ) : (
                 filteredSocieties.map((society) => (
                   <div key={society._id} className="society-card">
-                    <img src={society.logo} alt="Logo" className="society-logo" />
+                    <div className="card-header">
+                      <img src={society.logo} alt="Logo" className="society-logo" />
+                    </div>
                     <div className="card-body">
                       <h3>{society.name}</h3>
-                      <p className="society-type">{society.type}</p>
+                      <p className="society-type">{society.type || 'Uncategorized'}</p>
+                      <div className="card-stats">
+                        <div className="stat-item">
+                          <span className="stat-label">Members</span>
+                          <span className="stat-value">{society.members?.length || 0}</span>
+                        </div>
+                        <div className="stat-item">
+                          <span className="stat-label">Events</span>
+                          <span className="stat-value">{society.events?.length || 0}</span>
+                        </div>
+                      </div>
                       <button
                         className="view-details-btn"
                         onClick={() => setSelectedSociety(society)}
